@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>HR Dashboard</title>
+    </head>
+    <body>
+    <section class="head">
+    <nav class="navbar" background>
+        <ul class="nav-list">
+            <li><a href="#Dashboard"></a>Dashboard</li>
+            <li><a href="#Recruitment"></a>Recruitment</li>
+            <li><a href="#Performance"></a>Performance</li>
+            <li><a href="#CVScore"></a>CV Score</li>
+            <li><a href="#ResumeScreen"></a>CV Score</li>
+            <li><a href="#OnlineAssessment"></a>Online Assessment</li>
+            <li><a href="#Interview"></a>Schedule Interview</li>
+            <li><a href="#Offer"></a>Offer Letter</li>
+            <li><a href="#Mail"></a>Send Email</li>
+            <li><a href="#Job"></a>Job Description</li>
+        </ul>
+        </nav>
+           <style>
+            .navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #312;
+    color: white;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+}
+nav li {
+    margin-left: 50px;
+    cursor: pointer;
+}
+        </style>
+        </section>
+<section class="Job" text="center">
+    <style>
+    section {
+        padding: 20px;
+        background-color: rgb(42, 110, 57);
+        
+    }
+    
+ body{ 
+ font-family: 'Quicksand', sans-serif; 
+ background-color: brown 100%;
+ color: black; 
+ } 
+ body b{ 
+ font-size: 12px; 
+ } 
+    header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #e19afd;
+    color: white;
+}
+body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 20px;
+                        }
+                        
+                        h1 {
+                            text-align: center;
+                        }
+                        
+                        label {
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+</style>
+<div class="Job">
+<header>
+    <h1>Job Description</h1>
+</header>
+<p>
+<h1>Data Analyst Role</h1>
+Responsibilities<br>
+
+- Understanding the business requirements so as to formulate the problems to solve and restrict the slice of data to be explored.<br>
+- Collecting data from various sources.<br>
+- Performing cleansing, processing, and validation on the data subject to analyze, in order to ensure its quality.<br>
+- Exploring and visualizing data.<br>
+- Performing statistical analysis and experiments to derive business insights.<br>
+- Clearly communicating the findings from the analysis to turn information into something actionable through reports, dashboards, and/or presentations.<br>
+
+
+Skills<br>
+
+- Experience solving problems in the project’s business domain.<br>
+- Experience with data integration from multiple sources<br>
+<br>
+- Proficiency in at least one query language, especially SQL.<br>
+- Experience with NoSQL databases, such as MongoDB and Cassandra.<br>
+- Experience with popular statistical and machine learning techniques, such as clustering, linear regression, KNN, decision trees, etc.<br>
+- Good scripting skills-python,flask,django<br>
+<br>
+- Proficiency in at least one data visualization tool, such as Matplotlib, Plotly, D3.js, ggplot, etc.<br>
+- Experience with BI tools such as Tableau and Power BI.<br>
+- Great communication skills.<br>
+</p>
+</div>
+</section>
+
+        <section class="CVScore" id="CVScore">
+        <style>
+    section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 3px solid purple;
+    background-color: rgb(42, 110, 57);
+    
+}
+.CVScore{ 
+ font-family: 'Quicksand', sans-serif; 
+ background: linear-gradient(pink 50%);
+ color: brown; 
+ } 
+        </style>
+<head>
+    <title>CV Screening</title>
+</head>
+<body><header>
+    <h1>CV Screening</h1></header>
+       <form id="cvForm">
+        <label for="cvTextArea">Paste Your CV Here:</label><br>
+        <textarea id="cvTextArea" rows="10" cols="50"></textarea><br>
+        <button type="button" onclick="screenCV()">Screen CV</button>
+    </form>
+    <p id="score">CV Score: N/A</p>
+    
+    <script>
+        const keywords = {
+            "Python": 3,
+            "Data Analysis": 2,
+            "Machine Learning": 1,
+            "SQL": 2,
+            "MongoDb":3,
+            "Flask":3,
+            "Django":4,
+              "Git" :2
+        };
+        
+        function screenCV() {
+            const cvText = document.getElementById("cvTextArea").value;
+            const cvScore = calculateCVScore(cvText, keywords);
+            document.getElementById("score").textContent = `CV Score: ${cvScore}`;
+        }
+        
+        function calculateCVScore(cvText, keywords) {
+            const cvWords = cvText.toLowerCase().split(/\W+/);
+            let score = 0;
+            
+            for (const keyword in keywords) {
+                if (cvWords.includes(keyword.toLowerCase())) {
+                    const requiredLevel = keywords[keyword];
+                    score += requiredLevel;
+                }
+            }
+            
+            return score;
+        }
+    </script>
+    </section>
+    <section class="ResumeScreen" id="ResumeScreen">
+   <head>
+    <title>Resume Screening</title>
+</head>
+    <header><h1>Resume Screening</h1></header>
+    <form id="resumeForm">
+        <label for="resumeTextArea">Paste Your Resume Here:</label><br>
+        <textarea id="resumeTextArea" rows="10" cols="50"></textarea><br>
+        <button type="button" onclick="screenResume()">Screen Resume</button>
+    </form>
+    <p id="result1">No keywords matched</p>
+   
+    <script>
+        const jobDescriptionKeywords = ["Python", "Data Analysis", "Machine Learning", "SQL","MongoDb","Data Science","Flask","Git","Django"];
+        
+        function screenResume() {
+            const resumeText = document.getElementById("resumeTextArea").value;
+            const matchedKeywords = matchKeywords(resumeText, jobDescriptionKeywords);
+            
+            if (matchedKeywords.length > 0) {
+                document.getElementById("result1").textContent = `Matched keywords: ${matchedKeywords.join(", ")}`;
+            } else {
+                document.getElementById("result1").textContent = "No keywords matched";
+            }
+        }
+        
+        function matchKeywords(text, keywords) {
+            text = text.toLowerCase();
+            return keywords.filter(keyword => text.includes(keyword.toLowerCase()));
+        }
+    </script>
+    </section>
+
+<section class="OnlineAssessment">
+    <header>
+        <h1>Online Assessment</h1>
+    </header>
+        <section id="assessment">
+            <h2>Assessment Questions</h2>
+            <form>
+                <head>
+                    <title>Data Analyst Quiz</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 20px;
+                        }
+                        
+                        h1 {
+                            text-align: center;
+                        }
+                        .OnlineAssessment{ 
+ font-family: 'Comic-Sans', sans-serif; 
+ background:pitch;
+ color: black; 
+ } 
+                        form {
+                            max-width: 500px;
+                            margin: 0 auto;
+                        }
+                        
+                        .question {
+                            margin-bottom: 20px;
+                            padding: 10px;
+                            background-color: #f0f0f0;
+                            border: 1px solid #ccc;
+                            border-radius: 5px;
+                        }
+                        
+                        label {
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+                    </style>
+                </head>
+                         <form id="quiz-form">
+                        <div class="question">
+                            <p><strong>Question 1:</strong> What is data analysis?</p>
+                            <label><input type="radio" name="q1" value="a"> A process of cleaning data</label>
+                            <label><input type="radio" name="q1" value="b"> A process of interpreting data to extract insights</label>
+                            <label><input type="radio" name="q1" value="c"> A process of collecting data</label>
+                        </div>
+                        
+                        <div class="question">
+                            <p><strong>Question 2:</strong> What is the purpose of data preprocessing?</p>
+                            <label><input type="radio" name="q2" value="a"> To make data collection faster</label>
+                            <label><input type="radio" name="q2" value="b"> To transform data into a suitable format</label>
+                            <label><input type="radio" name="q2" value="c"> To visualize data</label>
+                        </div>
+                        <div class="question">
+                            <p>3. Which of the following is not LOD  expression in tableau?</p>
+                            <label>
+                                <input type="radio" name="q3" value="a"> a) FIXED
+                            </label>
+                            <label>
+                                <input type="radio" name="q3" value="b"> b) INCLUDE
+                            </label>
+                            <label>
+                                <input type="radio" name="q3" value="c"> c) EXCLUDE
+                            </label>
+                            <label>
+                                <input type="radio" name="q3" value="d"> c) CONSTANT
+                            </label>
+                        </div>
+                            <div class="question">
+                            <p>4. Which of the following is not window function in SQL?</p>
+                            <label>
+                                <input type="radio" name="q4" value="a"> a)RANK()
+                            </label>
+                            <label>
+                                <input type="radio" name="q4" value="b"> b)DENSE_RANK
+                            </label>
+                            <label>
+                                <input type="radio" name="q4" value="c"> c)RN()
+                            </label>
+                            <label>
+                                <input type="radio" name="q4" value="d"> c)ROW_NUMBER()
+                            </label>
+                        </div>
+                            <div class="question">
+                            <p>5. Which of the following is not LOD  expression in tableau?</p>
+                            <label>
+                                <input type="radio" name="q5" value="a"> a) CREATE
+                            </label>
+                            <label>
+                                <input type="radio" name="q5" value="b"> b) ALTER
+                            </label>
+                            <label>
+                                <input type="radio" name="q5" value="c"> c) DROP
+                            </label>
+                            <label>
+                                <input type="radio" name="q5" value="d"> c) DELETE
+                            </label>
+                        </div>
+                            <div class="question">
+                            <p>6. Which of the following is not DDL command in SQL?</p>
+                            <label>
+                                <input type="radio" name="q6" value="a"> a) LCASE()
+                            </label>
+                            <label>
+                                <input type="radio" name="q6" value="b"> b) UCASE()
+                            </label>
+                            <label>
+                                <input type="radio" name="q6" value="c"> c) CONVERTS()
+                            </label>
+                            <label>
+                                <input type="radio" name="q6" value="d"> c) VALUE()
+                            </label>
+                        </div>
+                            <div class="question">
+                            <p>7. Which of the following is virtual table based on result set of an SQL statement?</p>
+                            <label>
+                                <input type="radio" name="q7" value="a"> a)View
+                            </label>
+                            <label>
+                                <input type="radio" name="q7" value="b"> b)Subset
+                            </label>
+                            <label>
+                                <input type="radio" name="q7" value="c"> c)Set
+                            </label>
+                            <label>
+                                <input type="radio" name="q7" value="d"> c)Dictionary
+                            </label>
+                      </div>              
+                        <button type="button" onclick="checkAnswers()">Submit</button>
+                        <footer>
+                        <div id="result">
+                            <script>
+                                function checkAnswers() {
+                                    var totalQuestions = 7; // Update this with the total number of questions
+                                    var correctAnswers = 0;
+                        
+                                    for (var i = 1; i <= totalQuestions; i++) {
+                                        var selectedOption = document.querySelector('input[name="q' + i + '"]:checked');
+                                        if (selectedOption) {
+                                            if (selectedOption.value === 'b') {
+                                                correctAnswers++;
+                                            }
+                                        }
+                                    }
+                        
+                                    var resultDiv = document.getElementById('result');
+                                    resultDiv.outerHTML = 'You got ' + correctAnswers + ' out of ' + totalQuestions + ' correct.';
+                                }
+                            </script>
+                        </div>
+                    </footer>
+                    </form>    
+                         </section>
+    <title>Online Interview</title>
+    <style>
+        
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 5px solid #354c8b;
+    background-color: rgb(179, 79, 192);
+}
+
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+}
+
+/* Apply a responsive design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav {
+        margin-top: 10px;
+    }
+    
+    nav li {
+        margin-right: 10px;
+    }
+    
+    section {
+        padding: 10px;
+    }
+}
+
+    </style>
+</head>
+</main>
+<main>
+    <header>
+        <h1>Online Interview System</h1>
+    </header>
+    <main>
+        <section id="schedule-interview">
+     <h2>Schedule an Interview</h2>
+            <form>
+                <label for="candidate-name">Candidate Name:</label>
+                <input type="text" id="candidate-name" name="candidate-name" required><br>
+                <label for="interview-date">Interview Date:</label>
+                <input type="date" id="interview-date" name="interview-date" required><br>
+                <label for="interview-time">Interview Time:</label>
+                <input type="time" id="interview-time" name="interview-time" required><br>
+                <button type="submit">Schedule</button>
+            </form>
+            <style>
+body, h1, h2, h3, p, ul, li {
+    margin: 10;
+    padding: 5;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: rgb(255, 255, 255);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+
+main {
+    padding: 20px;
+}
+
+section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 3px solid #ddd;
+    background-color: whitesmoke;
+}
+
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #f4f4f4;
+}
+
+/* Apply a responsive design */
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    nav {
+        margin-top: 10px;
+    }
+    
+    nav li {
+        margin-block-start: 10px;
+    }
+    
+    section {
+        padding: 10px;
+    }
+}     
+</style>
+        </section>
+        </main>
+        <section id="conduct-interview">
+           <header> <h2>Conduct an Interview</h2></header>
+            
+          <a href="https://zoom.us/j/5551112222">
+          <button type="submit">
+           Launch Meeting
+           </button>
+          </a>
+      
+      
+            
+            <!-- Embed video conferencing tool (e.g., Zoom, Webex) here -->
+        </section>
+        <style>
+            body, h4{
+                margin: 10;
+                                padding: 10;
+            }
+            
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px;
+                background-color: #333;
+                color: rgb(255, 255, 255);
+            }
+                      
+            
+            main {
+                padding: 20px;
+            }
+            
+            section {
+                margin-bottom: 30px;
+                padding: 20px;
+                border: 3px solid #ddd;
+                background-color: whitesmoke;
+            }
+            
+           
+            
+            /* Apply a responsive design */
+            @media (max-width: 900px) {
+               
+                nav {
+                    margin-top: 10px;
+                }
+                
+                nav li {
+                    margin-block-start: 10px;
+                }
+                
+                section {
+                    padding: 10px;
+                }
+            }     
+            </style>
+    <title>Login - Online Assessment</title>
+</header>
+    <h1>Login</h1></header>
+    <form action="login.php" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+</main>
+<main>
+<section class="OfferLetter">
+<div class="appointment-letter">
+  <p style="text-align: center;font-size:80px">
+  <header><h1> 
+  Offer Letter Template
+  </h1></header>
+  </p>
+  <p> Employee Code:VX523656G <br/>
+  Date :12.08.2023
+  </p>
+  <p>Ms.  Ankita Upadhyay<br/>
+  Address<br/>
+    City- PIN
+  </p>
+  <p>
+    Dear Ankita,
+  </p>
+   <p> We thank you for deciding to be a part of StarterTech.
+  </p>
+  <p> Congratulations and welcome onboard a dynamic and winning team! </p>
+  <p>Further to your acceptance of the offer letter dated Date of Offer Letter, we are pleased to confirm your appointment as Designation for our  Department Name  at  Location  in  Company Name . </p>
+  <p> Please make note of the following important terms and conditions of your employment: </p>
+  <p>Commencement of employment: You have joined our services on date of joining and the said date has been recorded as your Date of Joining and will be considered as such for all future purposes pertaining to your employmentƒassociation with us.</p>
+  <p>Compensation & Benefits: Please refer to Annexure I, for details of your remuneration and benefits as applicable to you. The aforesaid CTC is subject to applicable taxes and statutory deductions that may prevail from time to time.</p>
+  <ul style="padding-left:15px">Transfer:
+    <li> While your current posting is in Location with Department, the company reserves the right to transfer you to another location, unit, department or company, associate company, subsidiary company, group company based on its requirements.</li>
+    <li>In the event of such transfer you will be required to abide by the rules and regulations, service conditions and benefits of the department, store and location where you are transferred to.</li>
+  </ul>
+   <p>Retirement: Your retirement from the services of the company will be on attainment of the age of 60 years.</p>
+   <p>Governing Terms & Conditions: You will be governed by the clauses mentioned in your Service Agreement, TCOC (Tata Code of Conduct), company HR policies at all points of time during your tenure of employment with the company. Please note that the appointment is subject to the backgroundƒdocument verification. Please note that failure to adhere to these norms, may lead to immediate termination from the services of the company.
+</p>  
+  <p>Declarations: This appointment is made on the basis of information provided by you. Should it prove untrueƒincorrect at any time, the Company reserves the rights to take appropriate action including forthwith termination of service. We shall be entitled to initiate necessary enquiries with the source of reference provided by you. In case of unfavorable report, we shall be entitled to take appropriate steps including forthwith terminating this agreement</p>
+   <p>Wish you a successful professional stint with us. We look forward to a mutually beneficial and enriching experience having you on board. All the best!</p>
+  <p>Warm Regards,<br/>
+From StarterTech
+</p>
+  <p>Name,<br/>
+Authorised Signatory Designation
+</p>
+  <p><div class="style" width=50%>I have read the above terms and conditions of my appointment. I accept the same.<br/>
+  _____________________ <br/>
+  Ankita Upadhyay<br/>
+  Employee Code :VX523656G
+</div>
+</p>
+<p style="clear: both;">Encl:<br/>
+1) Service Agreement
+</p>
+</section>
+</main>
+<main>
+<section class="Mail">
+<header>
+<h1>Send E-Mail</h1>
+</header>
+  <title>Send Mail</title>
+<form action="mailto:you@yourdmainhere.com" method="post" enctype="text/plain" >Name:<input type="text" name="Name"><br> Email:<input type="text" name="Email"> <br></form>
+<script src="https://smtpjs.com/v3/smtp.js">
+</script> <input type="button" value="Send Email" onclick="sendEmail()"> <script> 
+function sendEmail() { 	Email.send({ SecureToken : "<your generated token>", To : 'saitama48675@gmail.com', From : "saitama48675@gmail.com", Subject : "Test Email", 
+    Body : 
+    "Offer Letter"
+}).then( message => alert("mail sent successfully") ); } 
+</script>
+</section>
+  </main>
+</body>
+</html>
