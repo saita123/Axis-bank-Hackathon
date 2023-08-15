@@ -1,0 +1,2 @@
+- name: Deploy WordPress
+  uses: rtCamp/action-deploy-wordpress@v3.1.0
